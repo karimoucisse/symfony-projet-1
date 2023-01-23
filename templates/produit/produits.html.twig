@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Hello Produits {% endblock %}
+
+{% block body %}
+    <style>
+        .container { width: 100%; min-height: 100vh; display: flex; gap: 15px; flex-wrap: wrap; padding: 30px;}
+        .item { background-color: teal; width: 300px; padding: 10px; border-radius: 10px; cursor: pointer;
+            font-weight: 500;
+        }
+        a {text-decoration: none; color: rgba(255, 255, 255, 0.85);}
+    </style>
+
+    <div class="container">
+        {% for produit in produits %}
+            <div class="item">
+                <a href="{{ path('produit', {'id': produit.id}) }}">
+                    <p>nom: {{ produit.nom }}</p>
+                    <p>prix: {{ produit.prix }}</p>
+                    <p>quantité: {{ produit.qte }}</p>
+                    <p>description: {{ produit.description }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

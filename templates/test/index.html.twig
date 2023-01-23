@@ -17,7 +17,8 @@
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Action</th>
-                <th>supprimer</th>
+                <th>Supprimer</th>
+                <th>Produits</th>
 
             </tr>
             <tbody>
@@ -27,6 +28,9 @@
                         <td>{{ category.description }}</td>
                         <td>
                             <a href="{{ path('category', {'id': category.id}) }}">voir</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('produits', {'categorie': category.titre}) }}" class="btn btn-primary">voir produits</a>
                         </td>
                         <td>
                             <a href="{{ path('category_delete', {'id': category.id}) }}" class="btn btn-danger">supprimer</a>

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} produit {% endblock %}
+
+{% block body %}
+    <style>
+        .container { width: 100%; min-height: 100vh; display: flex; flex-direction: column; gap: 60px; flex-wrap: wrap; padding: 40px;}
+        a {text-decoration: none; color: rgba(255, 255, 255, 0.85);}
+    </style>
+    <div  class="container">
+        <div>
+            <p>nom: {{ produit.nom }}</p>
+            <p>prix: {{ produit.prix }}</p>
+            <p>quantité: {{ produit.qte }}</p>
+            <p>description: {{ produit.description }}</p>
+            <button class="btn btn-danger"><a href="{{ path('produit_delete', {'id': produit.id}) }}">Supprimer</a></button>
+        </div>
+
+        {{ form(modifier) }}
+    </div>
+{% endblock %}
