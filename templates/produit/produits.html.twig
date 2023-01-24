@@ -21,6 +21,8 @@
                     <p>description: {{ produit.description }}</p>
                 </a>
             </div>
+        {% else %}
+            <h1>Il n'y a pas de produit</h1>
         {% endfor %}
     </div>
 {% endblock %}

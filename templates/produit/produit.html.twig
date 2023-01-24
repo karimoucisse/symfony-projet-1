@@ -10,9 +10,11 @@
     <div  class="container">
         <div>
             <p>nom: {{ produit.nom }}</p>
+            <img src="{{ asset('uploads/' ~ produit.image) }}">
             <p>prix: {{ produit.prix }}</p>
             <p>quantité: {{ produit.qte }}</p>
             <p>description: {{ produit.description }}</p>
+            <p>description: {{ produit.category.titre }}</p>
             <button class="btn btn-danger"><a href="{{ path('produit_delete', {'id': produit.id}) }}">Supprimer</a></button>
         </div>
 

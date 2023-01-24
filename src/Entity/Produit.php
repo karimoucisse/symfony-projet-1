@@ -5,8 +5,12 @@ namespace App\Entity;
 use App\Repository\ProduitRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[UniqueEntity('nom')]
 class Produit
 {
     #[ORM\Id]
@@ -15,12 +19,14 @@ class Produit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?float $prix = null;
 
     #[ORM\Column]
@@ -29,6 +35,9 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $category = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -93,5 +102,26 @@ class Produit
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    #[ORM\PostRemove]
+    public function deleteImage()
+    {
+        // on regarde s'il ya une image
+        if($this->image != null){
+            unlink(__DIR__.'/../../public/uploads/'.$this->image);
+        }
     }
 }
